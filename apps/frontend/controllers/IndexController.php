@@ -10,8 +10,8 @@ class IndexController extends ControllerBase
     {
     	//$post = \Myproject\Frontend\Models\Posts::findFirstByid(1);
     	//$posts = Posts::find(); 
-    	//$post = Posts::findFirstByid(1);
-		//print_r($post);exit;
+    	$post = Posts::findFirstByid(1);
+		print_r($post);exit;
     }
 }
 

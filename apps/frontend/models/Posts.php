@@ -1,5 +1,5 @@
 <?php
-
+namespace Myproject\Frontend\Models;
 class Posts extends \Phalcon\Mvc\Model
 {
 
