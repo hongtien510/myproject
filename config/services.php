@@ -28,6 +28,13 @@ $di->set('router', function () {
     $router->setDefaultModule('frontend');
     $router->setDefaultNamespace('Myproject\Frontend\Controllers');
 
+    $router->add('/test-url', array(
+        'namespace' => 'Myproject\Frontend\Controllers',
+        'module' => 'frontend',
+        'controller' => 'index',
+        'action' => 'index'
+    ));
+
     $namespace = 'Myproject\Backend\Controllers';
     $key = 'backend';
     $router->add('/'.$key.'/:params', array(

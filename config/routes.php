@@ -2,6 +2,14 @@
 
 $router = $di->get("router");
 
+/*
+$router->add('/test-url', array(
+        'namespace' => 'Myproject\Frontend\Controllers',
+        'module' => 'frontend',
+        'controller' => 'index',
+        'action' => 'index'
+    ));
+*/
 foreach ($application->getModules() as $key => $module) {
     $namespace = str_replace('Module','Controllers', $module["className"]);
     $router->add('/'.$key.'/:params', array(
@@ -26,3 +34,5 @@ foreach ($application->getModules() as $key => $module) {
         'params' => 3
     ));
 }
+
+//print_r($router);exit;
