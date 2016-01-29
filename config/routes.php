@@ -1,17 +1,29 @@
 <?php
+use Phalcon\Mvc\Router\Group;
+use Phalcon\Mvc\Router;
 
-$router = $di->get("router");
+$router = new Router();
+$router->setDefaultModule('frontend');
+$router->setDefaultNamespace('Myproject\Frontend\Controllers');
 
-/*
 $router->add('/test-url', array(
-        'namespace' => 'Myproject\Frontend\Controllers',
-        'module' => 'frontend',
-        'controller' => 'index',
-        'action' => 'index'
-    ));
-*/
-foreach ($application->getModules() as $key => $module) {
-    $namespace = str_replace('Module','Controllers', $module["className"]);
+    'namespace' => 'Myproject\Frontend\Controllers',
+    'module' => 'frontend',
+    'controller' => 'index',
+    'action' => 'index'
+));
+
+
+$modules = [
+    'frontend' => [
+        'namespace' => 'Myproject\Frontend\Controllers'
+    ],
+    'backend' => [
+        'namespace' => 'Myproject\Backend\Controllers'
+    ]
+];
+foreach ($modules as $key => $module) {
+    $namespace = $module["namespace"];
     $router->add('/'.$key.'/:params', array(
         'namespace' => $namespace,
         'module' => $key,
@@ -35,4 +47,5 @@ foreach ($application->getModules() as $key => $module) {
     ));
 }
 
-//print_r($router);exit;
+return $router;
+

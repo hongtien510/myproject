@@ -13,6 +13,7 @@ use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
+use Phalcon\Mvc\Application;
 
 /**
  * The FactoryDefault Dependency Injector automatically registers the right services to provide a full stack framework
@@ -22,44 +23,11 @@ $di = new FactoryDefault();
 /**
  * Registering a router
  */
-$di->set('router', function () {
-    $router = new Router();
 
-    $router->setDefaultModule('frontend');
-    $router->setDefaultNamespace('Myproject\Frontend\Controllers');
-
-    $router->add('/test-url', array(
-        'namespace' => 'Myproject\Frontend\Controllers',
-        'module' => 'frontend',
-        'controller' => 'index',
-        'action' => 'index'
-    ));
-
-    $namespace = 'Myproject\Backend\Controllers';
-    $key = 'backend';
-    $router->add('/'.$key.'/:params', array(
-        'namespace' => $namespace,
-        'module' => $key,
-        'controller' => 'index',
-        'action' => 'index',
-        'params' => 1
-    ))->setName($key);
-    $router->add('/'.$key.'/:controller/:params', array(
-        'namespace' => $namespace,
-        'module' => $key,
-        'controller' => 1,
-        'action' => 'index',
-        'params' => 2
-    ));
-    $router->add('/'.$key.'/:controller/:action/:params', array(
-        'namespace' => $namespace,
-        'module' => $key,
-        'controller' => 1,
-        'action' => 2,
-        'params' => 3
-    ));
-    return $router;
+$di->set('router',function () {
+    return include "routes.php";
 });
+
 
 /**
  * The URL component is used to generate all kinds of URLs in the application
